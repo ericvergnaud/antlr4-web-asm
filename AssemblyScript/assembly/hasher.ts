@@ -65,6 +65,13 @@ export function hash32(value: u32): u32 {
     return HASH<u32>(value);
 }
 
+export function hash32s(value: u32[]): u32 {
+    const hasher = new Hasher();
+    for(let i=0;i<value.length;i++)
+        hasher.update32(value[i]);
+    return hasher.finish();
+}
+
 export function hash64(value: u64): u32 {
     return HASH<u64>(value);
 }

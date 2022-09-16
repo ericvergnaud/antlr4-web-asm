@@ -1,6 +1,6 @@
 import { updateHash } from "../src/hashUtils.js";
 globalThis.updateHash = updateHash;
-import { hash32, hashString, hashRef, hasherUpdateString } from "../build/release.js";
+import { hash32, hash32s, hashString, hashRef, hasherUpdateString } from "../build/release.js";
 import HashCode from "./HashCode.js";
 
 class Hashable {
@@ -25,21 +25,25 @@ class Hashable {
 // console.log("hashNumber 549 -> " + hashNumber(549));
 // console.log("hashString 'abcdef' -> " + hashString('abcdef'));
 
+const u32s = [...Array(1000).keys()];
+
 let before = Date.now();
-for (let i = 0; i < 10000000; i++) {
-    HashCode.hashStuff(i);
-    HashCode.hashStuff('abc-' + i);
-    HashCode.hashStuff(new Hashable(i));
+for (let i = 0; i < 1000; i++) {
+    HashCode.hashStuff(u32s);
+    // HashCode.hashStuff(i);
+    // HashCode.hashStuff('abc-' + i);
+    // HashCode.hashStuff(new Hashable(i));
 }
 let after = Date.now();
 
 console.log("js: " + (after - before));
 
 before = Date.now();
-for (let i = 0; i < 10000000; i++) {
-    hash32(i);
-    hashString('abc-' + i);
-    hashRef(new Hashable(i));
+for (let i = 0; i < 1000; i++) {
+    hash32s(u32s);
+    // hash32(i);
+    // hashString('abc-' + i);
+    // hashRef(new Hashable(i));
 }
 after = Date.now();
 
